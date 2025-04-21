@@ -20,3 +20,9 @@
 .header__title {
   cursor: pointer;
 }
+
+.books {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

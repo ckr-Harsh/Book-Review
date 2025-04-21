@@ -1,0 +1,62 @@
+[
+    {
+        "model": "api.book",
+        "pk": 1,
+        "fields": {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "genre": "Classic",
+            "published_year": 1925
+        }
+    },
+    {
+        "model": "api.book",
+        "pk": 2,
+        "fields": {
+            "title": "To Kill a Mockingbird",
+            "author": "Harper Lee",
+            "genre": "Classic",
+            "published_year": 1960
+        }
+    },
+    {
+        "model": "api.review",
+        "pk": 1,
+        "fields": {
+            "book": 1,
+            "rating": 5,
+            "comment": "A timeless masterpiece!",
+            "timestamp": "2025-04-21T10:00:00Z"
+        }
+    },
+    {
+        "model": "api.review",
+        "pk": 2,
+        "fields": {
+            "book": 1,
+            "rating": 4,
+            "comment": "A Good read :)!",
+            "timestamp": "2025-04-21T10:00:00Z"
+        }
+    },
+    {
+        "model": "api.review",
+        "pk": 1,
+        "fields": {
+            "book": 1,
+            "rating": 4,
+            "comment": "Time well spent, would recommend 4/5!",
+            "timestamp": "2025-04-21T10:00:00Z"
+        }
+    },
+    {
+        "model": "api.review",
+        "pk": 2,
+        "fields": {
+            "book": 2,
+            "rating": 4,
+            "comment": "Thought-provoking and beautifully written.",
+            "timestamp": "2025-04-21T11:00:00Z"
+        }
+    }
+]

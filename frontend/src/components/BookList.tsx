@@ -8,6 +8,7 @@ import {
   Box,
   Card,
 } from "@mui/material";
+import { redirect } from "react-router-dom";
 
 export const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -17,6 +18,12 @@ export const BookList: React.FC = () => {
     fetchBooks(filters).then((res) => setBooks(res.data));
   }, [filters]);
 
+  const _openBookInfo = (id: number) => {
+    console.log(`Button clicked : ${id}`);
+    redirect(`/books/${id}`);
+    // NavLink(`/books/${id}`);
+  };
+
   // Render books and filter UI
   return (
     <>
@@ -25,11 +32,32 @@ export const BookList: React.FC = () => {
       <main className="books">
         {books?.length ? (
           books.map((book: Book) => (
-            <li key={book.id}>
+            <div key={book.id}>
               <Box sx={{ minWidth: 275 }}>
-                <Card variant="outlined">{card(book.title, book.author)}</Card>
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {book.title}
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
+                      {book.author}
+                    </Typography>
+                    <Typography variant="body2">{book.description}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => {
+                        _openBookInfo(book.id);
+                      }}
+                    >
+                      Explore
+                    </Button>
+                  </CardActions>
+                </Card>
               </Box>
-            </li>
+            </div>
           ))
         ) : (
           <div className="books__empty">
@@ -42,27 +70,3 @@ export const BookList: React.FC = () => {
     </>
   );
 };
-
-const card = (title: string, author: string) => (
-  <React.Fragment>
-    <CardContent>
-      {/* <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-          {title}
-        </Typography> */}
-      <Typography variant="h5" component="div">
-        {title}
-      </Typography>
-      <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-        {author}
-      </Typography>
-      {/* <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography> */}
-    </CardContent>
-    <CardActions>
-      <Button size="small">Explore</Button>
-    </CardActions>
-  </React.Fragment>
-);

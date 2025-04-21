@@ -34,31 +34,31 @@ export interface BookFilterParams {
 export const fetchBooks = (
   params?: BookFilterParams
 ): Promise<AxiosResponse<Book[]>> =>
-  axios.get<Book[]>(`${API_BASE}/books/`, { params });
+  axios.get<Book[]>(`${API_BASE}/books`, { params });
 
 export const fetchBook = (id: number): Promise<AxiosResponse<Book>> =>
-  axios.get<Book>(`${API_BASE}/books/${id}/`);
+  axios.get<Book>(`${API_BASE}/books/${id}`);
 
 export const fetchReviews = (
   bookId: number
 ): Promise<AxiosResponse<Review[]>> =>
-  axios.get<Review[]>(`${API_BASE}/books/${bookId}/reviews/`);
+  axios.get<Review[]>(`${API_BASE}/books/${bookId}/reviews`);
 
 export const createReview = (
   bookId: number,
   data: Omit<Review, "id" | "timestamp">
 ): Promise<AxiosResponse<Review>> =>
-  axios.post<Review>(`${API_BASE}/books/${bookId}/reviews/`, data);
+  axios.post<Review>(`${API_BASE}/books/${bookId}/reviews`, data);
 
 export const updateReview = (
   bookId: number,
   reviewId: number,
   data: Partial<Omit<Review, "id" | "timestamp">>
 ): Promise<AxiosResponse<Review>> =>
-  axios.put<Review>(`${API_BASE}/books/${bookId}/reviews/${reviewId}/`, data);
+  axios.put<Review>(`${API_BASE}/books/${bookId}/reviews/${reviewId}`, data);
 
 export const deleteReview = (
   bookId: number,
   reviewId: number
 ): Promise<AxiosResponse<void>> =>
-  axios.delete<void>(`${API_BASE}/books/${bookId}/reviews/${reviewId}/`);
+  axios.delete<void>(`${API_BASE}/books/${bookId}/reviews/${reviewId}`);
