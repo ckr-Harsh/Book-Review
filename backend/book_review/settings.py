@@ -74,6 +74,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'book_review.wsgi.application'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+}
+APPEND_SLASH = False
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 

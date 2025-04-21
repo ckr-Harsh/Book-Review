@@ -1,42 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, TextField, Typography, Rating } from "@mui/material";
-import { createReview, Review } from "../api";
+import { createReview, updateReview, Review } from "../api";
 
 interface ReviewFormProps {
   bookId: number;
+  mode: "add" | "edit";
   onReviewAdded: (review: Review) => void;
+  onReviewUpdated?: (review: Review) => void;
+  initialReview?: Review | null;
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, onReviewAdded }) => {
-  const [rating, setRating] = useState<number | null>(5);
-  const [comment, setComment] = useState<string>("");
+const ReviewForm: React.FC<ReviewFormProps> = ({
+  bookId,
+  mode,
+  onReviewAdded,
+  onReviewUpdated,
+  initialReview,
+}) => {
+  const [rating, setRating] = useState<number | null>(
+    initialReview?.rating ?? 5
+  );
+  const [comment, setComment] = useState<string>(initialReview?.comment ?? "");
+
+  useEffect(() => {
+    if (initialReview) {
+      setRating(initialReview.rating);
+      setComment(initialReview.comment);
+    } else {
+      setRating(5);
+      setComment("");
+    }
+  }, [initialReview]);
+
+  const _modeMap = {
+    add: "Add a Review",
+    edit: "Update the Review",
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!rating) return;
-    const res = await createReview(bookId, {
-      rating,
-      comment,
-      book: bookId,
-    });
-    onReviewAdded(res.data);
-    setRating(5);
+    if (mode === "edit" && initialReview) {
+      const res = await updateReview(bookId, initialReview.id, {
+        rating,
+        comment,
+        book: bookId,
+      });
+      onReviewUpdated?.(res.data);
+    } else {
+      const res = await createReview(bookId, { rating, comment, book: bookId });
+      onReviewAdded(res.data);
+    }
+    setRating(4);
     setComment("");
   };
 
   return (
     <Box
       component="form"
+      className="review-form"
       onSubmit={handleSubmit}
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: 2,
         mb: 3,
-        maxWidth: 400,
       }}
     >
-      <Typography variant="h6">Add a Review</Typography>
+      <Typography variant="h6">{_modeMap[mode]}</Typography>
       <Rating
         name="rating"
         value={rating}
@@ -52,7 +83,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, onReviewAdded }) => {
         required
       />
       <Button variant="contained" type="submit" disabled={!rating || !comment}>
-        Submit Review
+        {mode === "edit" ? "Update" : "Submit"} Review
       </Button>
     </Box>
   );

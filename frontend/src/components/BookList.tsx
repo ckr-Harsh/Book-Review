@@ -17,7 +17,7 @@ export const BookList: React.FC = () => {
   const navigate = useNavigate();
   const [books, setBooks] = useState<Book[]>([]);
   const [filters, setFilters] = useState<BookFilterParams>({
-    genre: "classic",
+    genre: "All",
   });
 
   useEffect(() => {
@@ -25,9 +25,7 @@ export const BookList: React.FC = () => {
   }, [filters]);
 
   const _openBookInfo = (id: number) => {
-    console.log(`Button clicked : ${id}`);
     navigate(`/books/${id}`);
-    // NavLink(`/books/${id}`);
   };
 
   // Render books and filter UI
@@ -44,10 +42,10 @@ export const BookList: React.FC = () => {
             sx={{ width: 200 }}
             size="small"
           >
-            <MenuItem value="all">All</MenuItem>
-            <MenuItem value="classic">Classic</MenuItem>
-            <MenuItem value="fiction">Fiction</MenuItem>
-            <MenuItem value="non-fiction">Non-Fiction</MenuItem>
+            <MenuItem value="All">All</MenuItem>
+            <MenuItem value="Classic">Classic</MenuItem>
+            <MenuItem value="Fiction">Fiction</MenuItem>
+            <MenuItem value="Non-Fiction">Non-Fiction</MenuItem>
           </Select>
         </div>
       </div>
