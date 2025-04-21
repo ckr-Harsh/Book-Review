@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 // API base URL
-const API_BASE = "http://localhost:8000/api"; // Adjust as needed
+const API_BASE = "https://book-review-xwwv.onrender.com/api"; // Adjust as needed
 
 // Book type
 export interface Book {
