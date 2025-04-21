@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchBook, fetchReviews, Book, Review } from "../api";
+import ReviewForm from "./ReviewForm";
+import ReviewList from "./ReviewList";
+import { Button } from "@mui/material";
 
 const BookDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState<Book | null>(null);
+  const navigate = useNavigate();
+  const [book, setBook] = useState<Book>({} as Book);
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
@@ -14,25 +18,22 @@ const BookDetail: React.FC = () => {
     }
   }, [id]);
 
-  // Render book detail and reviews
+  const handleReviewAdded = (newReview: Review) => {
+    setReviews((prev) => [newReview, ...prev]);
+  };
+
   return (
     <div>
-      {/* Book detail UI here */}
+      <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
+        Go Back
+      </Button>
+      {/* Book detail UI */}
       <h2>{book?.title}</h2>
-      <p>{book?.author}</p>
-      <p>{book?.genre}</p>
-      <p>{book?.published_year}</p>
-      <p>{book?.description}</p>
-      <p>{book?.cover}</p>
+      {/* ...other fields... */}
+
       <h3>Reviews</h3>
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <p>{review.rating}</p>
-            <p>{review.comment}</p>
-          </li>
-        ))}
-      </ul>
+      <ReviewForm bookId={book.id!} onReviewAdded={handleReviewAdded} />
+      <ReviewList reviews={reviews} />
     </div>
   );
 };

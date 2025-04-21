@@ -7,12 +7,18 @@ import {
   Button,
   Box,
   Card,
+  MenuItem,
+  Select,
+  InputLabel,
 } from "@mui/material";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const BookList: React.FC = () => {
+  const navigate = useNavigate();
   const [books, setBooks] = useState<Book[]>([]);
-  const [filters, setFilters] = useState<BookFilterParams>({});
+  const [filters, setFilters] = useState<BookFilterParams>({
+    genre: "classic",
+  });
 
   useEffect(() => {
     fetchBooks(filters).then((res) => setBooks(res.data));
@@ -20,14 +26,31 @@ export const BookList: React.FC = () => {
 
   const _openBookInfo = (id: number) => {
     console.log(`Button clicked : ${id}`);
-    redirect(`/books/${id}`);
+    navigate(`/books/${id}`);
     // NavLink(`/books/${id}`);
   };
 
   // Render books and filter UI
   return (
     <>
-      <div className="filters">{/* Filter UI here */}</div>
+      <div className="filters">
+        <div className="filters__genre">
+          <InputLabel>Genre : </InputLabel>
+          <Select
+            value={filters.genre}
+            onChange={(e) => setFilters({ ...filters, genre: e.target.value })}
+            label="Genre"
+            variant="outlined"
+            sx={{ width: 200 }}
+            size="small"
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="classic">Classic</MenuItem>
+            <MenuItem value="fiction">Fiction</MenuItem>
+            <MenuItem value="non-fiction">Non-Fiction</MenuItem>
+          </Select>
+        </div>
+      </div>
 
       <main className="books">
         {books?.length ? (
@@ -42,7 +65,7 @@ export const BookList: React.FC = () => {
                     <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
                       {book.author}
                     </Typography>
-                    <Typography variant="body2">{book.description}</Typography>
+                    <Typography variant="body2">{book.genre}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button
