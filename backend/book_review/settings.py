@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-j9l66f(^h*d@ez&ub_%*v2!w^cv-rvmt*#umhuh*e(dqivv-xj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'https://book-review-xwwv.onrender.com']
 
 
 # Application definition
@@ -93,6 +94,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES['default'] = dj_database_url.parse('postgresql://pgsql_tie0_user:ZJCH6oL0YJK4kgWz9FcDzrC2wqbX5E5D@dpg-d031edjuibrs73bb58qg-a.singapore-postgres.render.com/pgsql_tie0')
 
 
 # Password validation
