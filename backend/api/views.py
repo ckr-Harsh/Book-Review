@@ -10,6 +10,14 @@ class BookListAPIView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['genre', 'author']
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        genre = self.request.query_params.get('genre')
+        if genre and genre.lower() != "all":
+            queryset = queryset.filter(genre__iexact=genre)
+        return queryset
+    
+
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

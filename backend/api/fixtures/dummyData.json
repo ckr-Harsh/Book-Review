@@ -11,6 +11,26 @@
     },
     {
         "model": "api.book",
+        "pk": 3,
+        "fields": {
+            "title": "Project Hail Mary",
+            "author": "Andy Weir",
+            "genre": "Fiction",
+            "published_year": 2023
+        }
+    },
+    {
+        "model": "api.book",
+        "pk": 4,
+        "fields": {
+            "title": "The Alchemist",
+            "author": "Paulo Coelho",
+            "genre": "Non-Fiction",
+            "published_year": 1993
+        }
+    },
+    {
+        "model": "api.book",
         "pk": 2,
         "fields": {
             "title": "To Kill a Mockingbird",
