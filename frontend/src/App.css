@@ -1,8 +1,6 @@
 .app {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
 }
 
 .app__content {
@@ -12,7 +10,6 @@
 }
 
 .header {
-  width: 100%;
   text-align: center;
   padding: 0.5rem;
   background: lightgray;
