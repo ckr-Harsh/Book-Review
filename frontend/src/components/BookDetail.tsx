@@ -17,7 +17,6 @@ const BookDetail: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      console.log(id);
       fetchBook(Number(id)).then((res) => setBook(res.data));
       fetchReviews(Number(id)).then((res) => setReviews(res.data));
     }
