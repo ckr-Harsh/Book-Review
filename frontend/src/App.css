@@ -1,0 +1,22 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.app__header {
+  flex-basis: 10%;
+}
+
+.app__content {
+  flex-basis: 90%;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+}
+
+.header__title {
+  cursor: pointer;
+}
