@@ -1,47 +1,37 @@
-### Get All Books
-GET http://localhost:8000/api/books/
+### List all books (with optional filtering)
+GET http://localhost:8000/api/books
 Accept: application/json
-
-### Create a Book
-POST http://localhost:8000/api/books/
-Content-Type: application/json
-
-{
-  "title": "The Pragmatic Programmer",
-  "author": "Andrew Hunt",
-  "genre": "Programming",
-  "published_year": 1999
-}
 
 ### Get Book Details
-GET http://localhost:8000/api/books/1/
+GET http://localhost:8000/api/books/1
 Accept: application/json
 
-### Create a Review
-POST http://localhost:8000/api/reviews/
-Content-Type: application/json
-
-{
-  "book": 1,
-  "rating": 5,
-  "comment": "Excellent book for software engineers!",
-  "timestamp": "2025-04-21T10:00:00Z"
-}
-
-### Get All Reviews
-GET http://localhost:8000/api/reviews/
+### List Reviews for a Book
+GET http://localhost:8000/api/books/1/reviews
 Accept: application/json
 
-### Update a Review
-PUT http://localhost:8000/api/reviews/1/
+### Create a Review for a Book
+POST http://localhost:8000/api/books/1/reviews
 Content-Type: application/json
 
 {
   "book": 1,
   "rating": 4,
-  "comment": "Still great, but a bit dated.",
-  "timestamp": "2025-04-21T10:10:00Z"
+  "comment": "Excellent book for software engineers!",
+  "timestamp": "2025-04-21T10:00:00Z"
 }
 
-### Delete a Review
-DELETE http://localhost:8000/api/reviews/1/
+### Update a Review for a Book
+PUT http://localhost:8000/api/books/1/reviews/1
+Content-Type: application/json
+
+{
+  "book": 1,
+  "rating": 4,
+  "comment": "Updated comment!",
+  "timestamp": "2025-04-21T12:00:00Z"
+}
+
+### Delete a Review for a Book
+DELETE http://localhost:8000/api/books/1/reviews/1
+Accept: application/json
